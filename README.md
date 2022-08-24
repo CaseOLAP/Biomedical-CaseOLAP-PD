@@ -1,5 +1,13 @@
 # Improved-CaseOLAP-PD
- CaseOLAP with improved entity name filtering, more readable code, and easier to re-run. This only uses Popularity (P) and Distinctiveness (D), not integrity. 
+ CaseOLAP with improved entity name filtering, more readable code, and easier to re-run. 
+ 
+The name filtering is a way to semi-automatically filter the queried synonyms to improve search results. When you search for an entity in the text documents (i.e. publications), you use the entities' names (i.e. synonyms). If the publication's text matches a name of an entity, that counts as a hit for that entity. However, some provided names are too ambiguous; many acronyms refer to things other than proteins such as diseases, surgical procedures, programs, and more (e.g., ALS could be a protein or a disease, PC2 can be a protein or Principal Component 2 from a Principal Component Analysis). To improve this situation, this version of CaseOLAP will find all short synonyms (i.e. <=3 letters, <=2 characters) and synonyms that are English words (i.e. synonyms that are found in an English dictionary and thus are likely to have alernate meanings). The user can then go through these synonyms and decide if they should be included in the query (the user may rely on human knowledge or search for the terms in PubMed and see what they typically refer to). CaseOLAP will then only  use the synonyms that the user did not disapproved. This improves search results and makes CaseOLAP scores better by reducing very false false positives although increasing some false negatives. 
+
+The code is more readable now due to increased comments or making code more concise or Pythonic in some areas. The results are more interpretable because the top ranked entities are displayed along with their synonyms and hits (results/ranked entities), plus the top ranked synonyms of the entities and their hits are displayed (results/ranked synonyms) for each category and the total.
+ 
+The code is easier to run because of some other changes to the order of how the code is run, the 'behind-the-scenes' of the entity count process, and other changes to the how the algorithm in run while preserving the same end result of a CaseOLAP score. There are new files which include the aforementioned features. 
+
+ Note: Like the other recent uses of CaseOLAP in the biomedical domain, this  uses Popularity (P) and Distinctiveness (D), not integrity. Because the entities are determined by a knowledge base, not by a phrase-mining program such as SegPhrase or AutoPhrase, the integrity score would always be 1. Thus, here the CaseOLAP score is calculate with P+D (result/caseolap.csv), P (result/popularity_score.csv), and D (distinctiveness_score.csv). 
 
  
  # CaseOLAP :
